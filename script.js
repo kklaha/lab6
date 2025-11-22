@@ -15,7 +15,10 @@ const extraPropertyCheckbox = document.getElementById("extra-property");
 function calculate() {
     const quantity = Number(quantityInput.value) || 1;
     const selectedService = document.querySelector('input[name="service"]:checked').value;
-
+    if (isNaN(quantity) || quantity < 1) {
+        resultDiv.textContent = "Введите натуральное количество!";
+        return;
+    }
     let total = basePrices[selectedService] * quantity;
     if (selectedService === "premium" && optionSelect.value === "option2") {
         total += optionPrice * quantity;
@@ -49,4 +52,5 @@ document.addEventListener("DOMContentLoaded", function () {
     optionSelect.addEventListener("change", calculate);
     extraPropertyCheckbox.addEventListener("change", calculate);
     updateForm();
+
 });
